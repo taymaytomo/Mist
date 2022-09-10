@@ -1,0 +1,94 @@
+---
+Identifier: com.taymaytomo.pkg.mist
+Input:
+  NAME: Mist
+  IDENTIFIER: com.taymaytomo.pkg.mist
+Process:
+  - Processor: URLDownloader
+    Arguments:
+      PKG: /Applications/Mist.app
+      url: ""
+  - Processor: EndOfCheckPhase
+  - Processor: CodeSignatureVerifier
+    Arguments:
+      input_path: "%pathname%"
+      requirement: 'anchor apple generic and identifier "com.taymaytomo.mist" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "7K3HVCLV7Z")'
+  - Processor: Versioner
+    Arguments:
+      input_plist_path: "%pathname%/Contents/Info.plist"
+  - Processor: PkgRootCreator
+    Arguments:
+      pkgroot: "%RECIPE_CACHE_DIR%/payload"
+      pkgdirs:
+        "Applications": "0755"
+        "Library": "0755"
+        "Library/LaunchDaemons": "0755"
+        "Library/PrivilegedHelperTools": "0755"
+  - Processor: Copier
+    Arguments:
+      source_path: "/Applications/Mist.app"
+      destination_path: "%RECIPE_CACHE_DIR%/payload/Applications/Mist.app"
+  - Processor: Copier
+    Arguments:
+      source_path: "/Library/LaunchDaemons/com.ninxsoft.mist.helper.plist"
+      destination_path: "%RECIPE_CACHE_DIR%/payload/Library/LaunchDaemons/com.taymaytomo.mist.helper.plist"
+  - Processor: Copier
+    Arguments:
+      source_path: "/Applications/Mist.app/Contents/Library/LaunchServices/com.taymaytomo.mist.helper"
+      destination_path: "%RECIPE_CACHE_DIR%/payload/Library/PrivilegedHelperTools/com.taymaytomo.mist.helper"
+  - Processor: Copier
+    Arguments:
+      source_path: "%MIST_RECIPE_DIR%/Scripts"
+      destination_path: "%RECIPE_CACHE_DIR%/scripts"
+  - Processor: PkgCreator
+    Arguments:
+      pkg_request:
+        id: "%IDENTIFIER%"
+        version: "%version%"
+        pkgtype: flat
+        pkgroot: "%RECIPE_CACHE_DIR%/payload"
+        pkgdir: "%RECIPE_CACHE_DIR%"
+        pkgname: "%NAME%-%version%"
+        chown:
+          - path: /Applications
+            user: root
+            group: wheel
+            mode: "0755"
+          - path: /Applications/Mist.app
+            user: root
+            group: wheel
+            mode: "0755"
+          - path: /Library
+            user: root
+            group: wheel
+            mode: "0755"
+          - path: /Library/LaunchDaemons
+            user: root
+            group: wheel
+            mode: "0755"
+          - path: /Library/LaunchDaemons/com.taymaytomo.mist.helper.plist
+            user: root
+            group: wheel
+            mode: "0644"
+          - path: /Library/PrivilegedHelperTools
+            user: root
+            group: wheel
+            mode: "0755"
+          - path: /Library/PrivilegedHelperTools/com.taymaytomo.mist.helper
+            user: root
+            group: wheel
+            mode: "0544"
+        scripts: "%RECIPE_CACHE_DIR%/scripts"
+  - Processor: PkgSigner
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
+      signing_cert: "%DEVELOPER_ID_INSTALLER%"
+  - Processor: FileMover
+    Arguments:
+      source: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
+      target: "%DESTINATION_DIR%/%NAME% %version%.pkg"
+  - Processor: PathDeleter
+    Arguments:
+      path_list:
+        - "%RECIPE_CACHE_DIR%/scripts"
+        - "%RECIPE_CACHE_DIR%/%NAME%-%version%-unsigned.pkg"
