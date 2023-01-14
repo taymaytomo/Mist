@@ -49,7 +49,7 @@ Grab the latest version of **Mist** from the [releases page](https://github.com/
 
 ## Credits / Thank You
 
-- Project created and maintained by TinHocThucHanh ([TinHocThucHanh](https://youtube.com/c/tinhocthuchanh)).
+- Project created and maintained by TinHocThucHanh1984 ([TinHocThucHanh1984](https://www.youtube.com/@TinHocThucHanh1984)).
 - JP Simard ([jpsim](https://github.com/jpsim)) for [Yams](https://github.com/jpsim/Yams), used to export lists as YAML.
 - Josh Kaplan ([jakaplan](https://github.com/jakaplan)) for [Blessed](https://github.com/trilemma-dev/Blessed), [EmbeddedPropertyList](https://github.com/trilemma-dev/EmbeddedPropertyList), and [SecureXPC](https://github.com/trilemma-dev/SecureXPC), which are all used to support the Privileged Helper Tool.
 - The Sparkle Project ([sparkle-project](https://github.com/sparkle-project)) for [Sparkle](https://github.com/sparkle-project/Sparkle), used to auto update Mist.
@@ -75,7 +75,7 @@ Grab the latest version of **Mist** from the [releases page](https://github.com/
 
 ## License
 
-> Copyright © 2022 [TinHocThucHanh](https://youtube.com/c/tinhocthuchanh)
+> Copyright © 2022 [TinHocThucHanh1984](https://www.youtube.com/@TinHocThucHanh1984)
 >
 > Permission is hereby granted, free of charge, to any person obtaining a copy
 > of this software and associated documentation files (the "Software"), to deal
